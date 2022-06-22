@@ -1,0 +1,141 @@
+﻿<Window x:Class="PrismLogin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+                     xmlns:local="clr-namespace:PrismLogin.Views" 
+        xmlns:namespc="clr-namespace:PrismLogin.Contorl" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Contorl/Dictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>-->
+            
+            
+            <namespc:ListViewItemStyleSelector x:Key="myStyleSelector"/>
+            <Style TargetType="{x:Type GridViewColumnHeader}" >
+                <Setter Property="Background" Value="SlateGray" />
+                <Setter Property="FontFamily" Value="Microsoft YaHei" />
+                <Setter Property="FontSize" Value="20" />
+               
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                
+            </Style>
+            <!--<Style  TargetType="{x:Type ListViewItem}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                --><!--<EventSetter Event="MouseDoubleClick"  Handler="SListView_ItemDoubleClick"/>--><!--
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="true">
+                        <Setter Property="Background" Value="RoyalBlue" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Background" Value="SeaGreen" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>-->
+            
+        </ResourceDictionary>
+        
+    </Window.Resources>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+        <Border Background="LightSlateGray">
+            <Grid>
+                <TabControl Style="{StaticResource TabControlStyle}" x:Name="TbCmd" >
+               
+                    <TabItem Header="listview"  Style="{StaticResource TabItemStyle}"  >
+
+                    </TabItem>
+                    <TabItem Header="datagrid"  Style="{StaticResource TabItemStyle}" >
+
+                    </TabItem>
+                    <TabItem Header="menudrawerfloat"  Style="{StaticResource TabItemStyle}"   >
+
+                    </TabItem>
+                    <TabItem Header="treeview"  Style="{StaticResource TabItemStyle}"  >
+
+                    </TabItem>
+                    <TabItem Header="menu"  Style="{StaticResource TabItemStyle}" >
+
+                    </TabItem>
+                    <TabItem Header="signalr"  Style="{StaticResource TabItemStyle}"  >
+
+                    </TabItem>
+                    <TabItem Header="menudrawer"  Style="{StaticResource TabItemStyle}"  >
+
+                    </TabItem>
+                    <TabItem Header="专题"  Style="{StaticResource TabItemStyle}">
+
+                    </TabItem>
+                    <TabItem Header="社区"  Style="{StaticResource TabItemStyle}">
+
+                    </TabItem>
+                    <TabItem Header="活动"  Style="{StaticResource TabItemStyle}">
+
+                    </TabItem>
+                    <TabItem Header="交流"  Style="{StaticResource TabItemStyle}">
+
+                    </TabItem>
+                    <TabItem Header="关于"  Style="{StaticResource TabItemStyle}">
+
+                    </TabItem>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding TabCommand}" CommandParameter="{Binding ElementName=TbCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TabControl>
+
+            </Grid>
+        </Border>
+    </ScrollViewer>
+
+    <!--<Grid>
+
+        <ListView x:Name="SListView" 
+                  ItemsSource="{Binding Path=PersonCollectionView}"                   
+                  ItemContainerStyleSelector="{DynamicResource myStyleSelector}">        
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">
+                        <GridViewColumnHeader Command="{Binding Path=SortCommand}" 
+                                              CommandParameter="Name">姓名</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Age}">
+                        <GridViewColumnHeader Command="{Binding Path=SortCommand}" 
+                                              CommandParameter="Age">年龄</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Email}">
+                        <GridViewColumnHeader >邮箱</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Tel}">
+                        <GridViewColumnHeader >电话</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Sex}">
+                        <GridViewColumnHeader >性别</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Address}">
+                        <GridViewColumnHeader >地址</GridViewColumnHeader>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding ElementName=SListView}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+
+    </Grid>-->
+</Window>

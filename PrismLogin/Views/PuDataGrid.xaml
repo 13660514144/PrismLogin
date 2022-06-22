@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="PrismLogin.Views.PuDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PrismLogin.Views"
+             xmlns:DMScrollBar="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:viewmodels="clr-namespace:PrismLogin.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DataListGridViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <Style TargetType="DataGrid">
+                <!--网格线颜色-->
+                <Setter Property="CanUserResizeColumns" Value="false"/>
+                <Setter Property="Background" Value="#E6DBBB" />
+                <Setter Property="BorderBrush" Value="#d6c79b" />
+                <Setter Property="HorizontalGridLinesBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#d6c79b"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="VerticalGridLinesBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#d6c79b"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--标题栏样式-->
+            <!--<Style  TargetType="DataGridColumnHeader" >
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="White" />
+        <Setter  Property="FontWeight"  Value="Bold"/>
+    </Style>-->
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="MinHeight" Value="28" />
+                <Setter Property="Foreground" Value="#323433" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridColumnHeader">
+                            <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" 
+                             BorderBrush="#e6dbba" 
+                              Width="Auto">
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter  Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill"  Grid.Column="2" Width="8" Height="6" Fill="White" Margin="0,0,50,0" 
+                            VerticalAlignment="Center" RenderTransformOrigin="1,1" />
+                                    <Rectangle Width="1" Fill="#d6c79b" HorizontalAlignment="Right" Grid.ColumnSpan="1" />
+                                    <!--<TextBlock  Background="Red">
+                            <ContentPresenter></ContentPresenter></TextBlock>-->
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Height" Value="25"/>
+            </Style>
+            <!--行样式触发-->
+            <!--背景色改变必须先设置cellStyle 因为cellStyle会覆盖rowStyle样式-->
+            <Style  TargetType="DataGridRow">
+                <Setter Property="Background" Value="#F2F2F2" />
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="Black" />
+                <Style.Triggers>
+                    <!--隔行换色-->
+                    <Trigger Property="AlternationIndex" Value="0" >
+                        <Setter Property="Background" Value="#e7e7e7" />
+                    </Trigger>
+                    <Trigger Property="AlternationIndex" Value="1" >
+                        <Setter Property="Background" Value="#f2f2f2" />
+                    </Trigger>
+
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightGray"/>
+                        <!--<Setter Property="Foreground" Value="White"/>-->
+                    </Trigger>
+
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--单元格样式触发-->
+            <Style TargetType="DataGridCell">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <TextBlock TextAlignment="Center" VerticalAlignment="Center"  >
+                           <ContentPresenter />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <!--<Setter Property="Background" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>-->
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="400"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DataGrid AutoGenerateColumns="False"  Name="dataGrid1"  VerticalAlignment="Top"
+                  CanUserSortColumns="False"   Margin="0,5,0,0" IsReadOnly="True"
+                  CanUserResizeColumns="False" CanUserResizeRows="False"  SelectionMode="Single"
+                  CanUserReorderColumns="False" AlternationCount="2"  RowHeaderWidth="0" CanUserAddRows="False" 
+                      ItemsSource="{Binding Path=StudentCollectionView}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="名称" Width="150"  Binding="{Binding  Name}"/>
+                    <DataGridTextColumn Header="班级"   Width="120"  Binding="{Binding Class}"/>
+                    <DataGridTextColumn Header="性别"  Width="120"  Binding="{Binding Sex}"/>
+                    <DataGridTextColumn Header="班级排名"  Width="130"  Binding="{Binding ClassRank}"/>
+                    <DataGridTextColumn Header="全校排名"  Width="140"  Binding="{Binding SchoolRank}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <!--<Button Name="firstPage" Content="首页" Height="20" Width="45" Margin="5" />-->
+                <Button Name="prePage" Content="上一页" Height="20" Width="45" Margin="5" />
+                <Button Name="nextPage" Content="下一页" Height="20" Width="45" Margin="5" />
+                <!--<Button Name="endPage" Content="末页" Height="20" Width="45" Margin="5" />-->
+                <Label Content="第" Margin="5,5,0,5" VerticalContentAlignment="Center" />
+                <TextBox Name="goPage" Text="1" Height="20" Width="40" Margin="0,5,0,5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                <Label Content="页" Margin="0,5,5,5" VerticalContentAlignment="Center" />
+                <Button Name="go" Content="前往" Height="20" Width="45" Margin="5" />
+                <Label Name="currentPage" Content="【第 页】" Margin="5,5,0,5" VerticalContentAlignment="Center" />
+                <Label Name="totalPage" Content="【共 页】" Margin="0,5,0,5" VerticalContentAlignment="Center" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

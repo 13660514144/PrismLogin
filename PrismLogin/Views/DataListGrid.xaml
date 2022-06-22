@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="PrismLogin.Views.DataListGrid"
+              xmlns:pu="clr-namespace:Panuon.UI.Silver;assembly=Panuon.UI.Silver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PrismLogin.Views" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:data="clr-namespace:PrismLogin.Contorl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <data:ObjectConvert x:Key="objectConverter" ></data:ObjectConvert>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+            <DataGrid Grid.Row="0" x:Name="SDataGrid" AutoGenerateColumns="False"  VerticalAlignment="Top"
+                                  CanUserSortColumns="False"     Margin="5" IsReadOnly="True"
+                                  CanUserResizeColumns="False" CanUserResizeRows="False"  SelectionMode="Single"
+                                  CanUserReorderColumns="False" AlternationCount="2"  RowHeaderWidth="0" CanUserAddRows="False"
+                              RowStyle="{StaticResource AlertCount1}" ItemsSource="{Binding Path=StudentCollectionView}"   
+                            >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="名称" Width="150"  Binding="{Binding  Name}"/>
+                <DataGridTextColumn Header="班级"   Width="120"  Binding="{Binding Class}"/>
+                <DataGridTextColumn Header="性别"  Width="120"  Binding="{Binding Sex}"/>
+                <DataGridTextColumn Header="班级排名"  Width="130"  Binding="{Binding ClassRank}"/>
+                <DataGridTextColumn Header="全校排名"  Width="140"  Binding="{Binding SchoolRank}"/>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <!--<i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding ElementName=SDataGrid}" />
+                </i:EventTrigger>-->
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding ShowMessageBoxCommand}">
+                        <i:InvokeCommandAction.CommandParameter>
+                            <MultiBinding Converter="{ StaticResource ResourceKey=objectConverter}">
+                                <Binding ElementName="SDataGrid"></Binding>
+                                <Binding ElementName="stack"></Binding>
+                            </MultiBinding>
+                        </i:InvokeCommandAction.CommandParameter>
+                    </i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
+        <Border Grid.Row="1" Background="Gray" BorderBrush="Gray" BorderThickness="3" CornerRadius="10" Name="Border1" >
+            <StackPanel VerticalAlignment="Center"   x:Name="stack"   Width="300" Height="300">
+                <TextBox FontSize="25" 
+             pu:TextBoxHelper.Header="Name : " Text="{Binding TName}" 
+             pu:TextBoxHelper.Watermark="姓名"
+             pu:TextBoxHelper.CornerRadius="5" Width="267"   />
+                <TextBox FontSize="25" 
+             pu:TextBoxHelper.Header="Class :  " Text="{Binding TClass}" 
+             pu:TextBoxHelper.Watermark="班级"
+             pu:TextBoxHelper.CornerRadius="5" Width="267" />
+                <TextBox FontSize="25"
+             pu:TextBoxHelper.Header="Sex :     " Text="{Binding TSex}" 
+             pu:TextBoxHelper.Watermark="性别"
+             pu:TextBoxHelper.CornerRadius="5" Width="267" />
+                <TextBox FontSize="25"
+             pu:TextBoxHelper.Header="ClassRank :" Text="{Binding ClassRank}" 
+             pu:TextBoxHelper.Watermark="班级排名"
+             pu:TextBoxHelper.CornerRadius="5" Width="345" />
+                <TextBox FontSize="25"
+             pu:TextBoxHelper.Header="SchoolRank:" Text="{Binding SchoolRank}" 
+             pu:TextBoxHelper.Watermark="学校排名"
+             pu:TextBoxHelper.CornerRadius="5" Width="375" />
+                <Button Content="保存" Margin="20"
+                pu:ButtonHelper.ButtonStyle="Standard"
+            pu:ButtonHelper.CornerRadius="5"
+                pu:ButtonHelper.HoverBrush="Blue" FontFamily="YaHei" FontSize="25" 
+                Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=stack}"
+                VerticalAlignment="Top" Height="40" Width="150"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
